@@ -1,0 +1,19 @@
+SHELL = /bin/bash
+
+export MAKEFILE_ROOT_PATH ?= $(realpath $(CAULDRON_HARNESS_PATH)/..)
+
+export TEMPLATES_PATH = $(MAKEFILE_ROOT_PATH)/templates
+
+export CAULDRON_PATH = $(MAKEFILE_ROOT_PATH)/cauldron
+
+export INFRASTRUCTURE_PATH = infrastructure
+
+export SERVICES_PATH = services
+
+export GCLOUD_PATH = $(INFRASTRUCTURE_PATH)/gcloud
+
+export GCLOUD_CLUSTER_PATH = $(GCLOUD_PATH)/cluster
+
+export GCLOUD_STORAGE_PATH = $(GCLOUD_PATH)/storage
+
+export DEFINES_FILE = $(CAULDRON_PATH)/defines.yml
