@@ -1,6 +1,6 @@
 SHELL = /bin/bash
 
-export MAKEFILE_ROOT_PATH = $(realpath $(CAULDRON_HARNESS_PATH)/..)
+export MAKEFILE_ROOT_PATH ?= $(realpath $(CAULDRON_HARNESS_PATH)/..)
 
 export TEMPLATES_PATH = $(MAKEFILE_ROOT_PATH)/templates
 
