@@ -20,8 +20,6 @@ BEFORE_LAST := $(word $(shell echo $(LAST_WORD_INDEX) - 2 | bc),$(MAKEFILE_LIST)
 CAULDRON_MAKEFILE_PATH := $(abspath $(BEFORE_LAST))
 
 global/init: goofys/mount
-	# TODO: Refactor this copy procedure (remove it).
-	cp -f ${SECRETS_DIR}/gce.account.json .
 
 global/all/before:
 	@echo ""
