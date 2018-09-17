@@ -28,6 +28,6 @@ global/all/before:
 global/all/after:
 	@echo "--- End $(CAULDRON_MAKEFILE_PATH) ---"
 
-cauldron/clean:
+cauldron/workdir/clean:
 	@echo "Clean cauldron"
 	rm -fR $(CAULDRON_WORKDIR_PATH)
