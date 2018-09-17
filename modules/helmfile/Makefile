@@ -1,2 +1,5 @@
+export HELMFILE_FILE_PATH ?= helmfile.yaml
+export HELMFILE_ENVIRONMENT ?= default
+
 helmfile/sync/env:
-	set -a; . .env; set +a; helmfile sync;
+	helmfile --file $(HELMFILE_FILE_PATH) --environment $(HELMFILE_ENVIRONMENT) sync
