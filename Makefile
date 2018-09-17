@@ -30,4 +30,4 @@ global/all/after:
 
 cauldron/clean:
 	@echo "Clean cauldron"
-	rm -fR $(CAULDRON_PATH)
+	rm -fR $(CAULDRON_WORKDIR_PATH)

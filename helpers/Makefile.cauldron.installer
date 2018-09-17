@@ -1,0 +1,22 @@
+# Idea of installation procedure is borrowed from https://github.com/cloudposse/build-harness
+
+export SHELL = /bin/bash
+export CAULDRON_DIR_NAME ?= cauldron-harness
+export CAULDRON_GITHUB_ORG ?= aroq
+export CAULDRON_GITHUB_PROJECT ?= cauldron
+export CAULDRON_GITHUB_BRANCH ?= master
+export CAULDRON_PATH ?= $(shell until [ -d "$(CAULDRON_DIR_NAME)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(CAULDRON_DIR_NAME)
+-include $(CAULDRON_PATH)/Makefile
+
+.PHONY : init
+## Init cauldron
+init::
+	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(CAULDRON_GITHUB_ORG)/$(CAULDRON_GITHUB_PROJECT)/$(CAULDRON_GITHUB_BRANCH)/bin/install.sh | \
+		bash -s "$(CAULDRON_GITHUB_ORG)" "$(CAULDRON_GITHUB_PROJECT)" "$(CAULDRON_GITHUB_BRANCH)"
+
+.PHONY : clean
+## Clean cauldron
+clean::
+	@[ "$(CAULDRON_PATH)" == '/' ] || \
+	 [ "$(CAULDRON_PATH)" == '.' ] || \
+	   echo rm -rf $(CAULDRON_PATH)

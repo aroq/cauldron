@@ -5,7 +5,7 @@ terraform/checkexec:
 	$(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
 terraform/init:
-	cd $(CAULDRON_PATH)/$(GCLOUD_CLUSTER_PATH)/terraform && terraform init;
+	cd $(CAULDRON_WORKDIR_PATH)/$(GCLOUD_CLUSTER_PATH)/terraform && terraform init;
 
 terraform/plan:
 	terraform plan;
