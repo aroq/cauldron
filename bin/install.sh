@@ -1,4 +1,5 @@
 #!/bin/bash
+export CAULDRON_DIR_NAME="cauldron-harness"
 export CAULDRON_GITHUB_ORG=${1:-aroq}
 export CAULDRON_GITHUB_PROJECT=${2:-cauldron}
 export CAULDRON_GITHUB_BRANCH=${3:-master}
@@ -10,4 +11,4 @@ if [ "$CAULDRON_GITHUB_PROJECT" ] && [ -d "$CAULDRON_GITHUB_PROJECT" ]; then
 fi
 
 echo "Cloning ${GITHUB_REPO}#${CAULDRON_GITHUB_BRANCH}..."
-git clone -b "$CAULDRON_GITHUB_BRANCH" "$GITHUB_REPO"
+git clone -b "$CAULDRON_GITHUB_BRANCH" "$GITHUB_REPO" "$CAULDRON_DIR_NAME"
