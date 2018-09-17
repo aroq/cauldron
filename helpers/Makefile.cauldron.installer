@@ -8,13 +8,13 @@ export CAULDRON_GITHUB_BRANCH ?= master
 export CAULDRON_PATH ?= $(shell until [ -d "$(CAULDRON_DIR_NAME)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(CAULDRON_DIR_NAME)
 -include $(CAULDRON_PATH)/Makefile
 
-.PHONY : init
+.PHONY : cauldron/init
 ## Init cauldron
 cauldron/init:
 	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(CAULDRON_GITHUB_ORG)/$(CAULDRON_GITHUB_PROJECT)/$(CAULDRON_GITHUB_BRANCH)/bin/install.sh | \
 		bash -s "$(CAULDRON_GITHUB_ORG)" "$(CAULDRON_GITHUB_PROJECT)" "$(CAULDRON_GITHUB_BRANCH)"
 
-.PHONY : clean
+.PHONY : cauldron/clean
 ## Clean cauldron
 cauldron/clean::
 	@[ "$(CAULDRON_PATH)" == '/' ] || \
