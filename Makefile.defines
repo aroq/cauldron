@@ -2,8 +2,8 @@ SHELL = /bin/bash
 
 export MAKEFILE_ROOT_PATH = $(realpath $(CAULDRON_PATH)/..)
 
-export TEMPLATES_PATH ?= $(MAKEFILE_ROOT_PATH)/templates
+export TEMPLATES_PATH = $(MAKEFILE_ROOT_PATH)/templates
 
-export CAULDRON_WORKDIR_PATH ?= $(MAKEFILE_ROOT_PATH)/cauldron
+export CAULDRON_WORKDIR_PATH = $(MAKEFILE_ROOT_PATH)/cauldron
 
-export DEFINES_FILE ?= $(CAULDRON_WORKDIR_PATH)/defines.yml
+export DEFINES_FILE = $(CAULDRON_WORKDIR_PATH)/defines.yml
