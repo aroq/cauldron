@@ -1,8 +1,8 @@
 # Mount s3 bucket with secrets into $SECRETS_MOUNT_POINT dir.
 #
 
-export SECRETS_SOURCE_ID_RSA_FILE_NAME ?= id_rsa
-export SECRETS_TARGET_ID_RSA_FILE_NAME ?= id_rsa
+SECRETS_SOURCE_ID_RSA_FILE_NAME ?= id_rsa
+SECRETS_TARGET_ID_RSA_FILE_NAME ?= id_rsa
 
 goofys/mount:
 ifdef SECRETS_MOUNT_POINT
