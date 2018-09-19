@@ -6,7 +6,7 @@ export CAULDRON_GITHUB_ORG ?= aroq
 export CAULDRON_GITHUB_PROJECT ?= cauldron
 export CAULDRON_GITHUB_BRANCH ?= master
 export CAULDRON_PATH ?= $(shell until [ -d "$(CAULDRON_DIR_NAME)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(CAULDRON_DIR_NAME)
--include $(CAULDRON_PATH)/Makefile
+# -include $(CAULDRON_PATH)/Makefile
 
 .PHONY : cauldron/init
 ## Init cauldron
