@@ -1,4 +1,5 @@
-export CAULDRON_PATH = $(shell 'pwd')/cauldron-harness
+# export CAULDRON_PATH = $(shell 'pwd')/cauldron-harness
+export CAULDRON_PATH ?= $(shell until [ -d "cauldron-harness" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/cauldron-harness
 
 # Identify calling Makefile and put into CAULDRON_MAKEFILE_PATH.
 LAST_WORD_INDEX = $(words $(MAKEFILE_LIST))
