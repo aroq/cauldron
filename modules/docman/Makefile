@@ -5,4 +5,4 @@ docman/build: docman/init
 	cd .build && docman deploy git_target master branch $(CI_COMMIT_REF_NAME)
 
 docman/build/local/stable: docman/init
-	cd .build && docman build local stable
+	ENV="prod" cd .build && docman build local stable
