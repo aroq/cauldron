@@ -11,12 +11,16 @@ include $(CAULDRON_PATH)/modules/*/Makefile*
 # CI_REPOSITORY_URL is defined in Gitlab runner.
 export CI_REPOSITORY_URL ?= $(shell git config --get remote.origin.url)
 
+.PHONY : self/%
+self/%:
+	@:
+
 .PHONY : %/before
 %/before:
 	@:
 
 .PHONY : %/after
-%/after:
+%/kfter:
 	@:
 
 .PHONY : init plan apply destroy state
