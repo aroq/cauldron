@@ -6,3 +6,8 @@ docman/build: docman/init
 
 docman/build/local/stable: docman/init
 	ENV="prod" cd .build && docman build local stable
+
+.PHONY : bump/stable/next
+bump/stable/next:
+	docman bump stable -n
+

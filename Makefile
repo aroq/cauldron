@@ -33,3 +33,9 @@ global/all/after:
 cauldron/workdir/clean:
 	@echo "Clean cauldron"
 	rm -fR $(CAULDRON_WORKDIR_PATH)
+
+.PHONY : local/apply/prod
+local/apply/prod: docman/build/local/stable
+	# TODO: Find a better way to retrieve dependencies.
+	cp -fR $(MAKEFILE_ROOT_PATH)/.build/master/templates $(MAKEFILE_ROOT_PATH)
+	ENV="prod" $(MAKE) apply
