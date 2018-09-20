@@ -11,16 +11,20 @@ include $(CAULDRON_PATH)/modules/*/Makefile*
 # CI_REPOSITORY_URL is defined in Gitlab runner.
 export CI_REPOSITORY_URL ?= $(shell git config --get remote.origin.url)
 
-.PHONY : self/%
-self/%:
+.PHONY : %/before
+%/before:
+	@:
+
+.PHONY : %/after
+%/after:
 	@:
 
 .PHONY : init plan apply destroy state
-init:    global/all/before self/all/before self/init/before    self/init    self/init/after    self/all/after global/all/after
-plan:    global/all/before self/all/before self/plan/before    self/plan    self/plan/after    self/all/after global/all/after
-apply:   global/all/before self/all/before self/apply/before   self/apply   self/apply/after   self/all/after global/all/after
-destroy: global/all/before self/all/before self/destroy/before self/destroy self/destroy/after self/all/after global/all/after
-state:   global/all/before self/all/before self/state/before   self/state   self/state/after   self/all/after global/all/after
+init:    global/all/before all/before init/before    self/init    init/after    all/after global/all/after
+plan:    global/all/before all/before plan/before    self/plan    plan/after    all/after global/all/after
+apply:   global/all/before all/before apply/before   self/apply   apply/after   all/after global/all/after
+destroy: global/all/before all/before destroy/before self/destroy destroy/after all/after global/all/after
+state:   global/all/before all/before state/before   self/state   state/after   all/after global/all/after
 
 .PHONY : global/init
 global/init: goofys/mount
