@@ -51,3 +51,9 @@ local/state/prod: docman/build/local/stable
 	# TODO: Find a better way to retrieve dependencies.
 	cp -fR $(MAKEFILE_ROOT_PATH)/.build/master/templates $(MAKEFILE_ROOT_PATH)
 	ENV="prod" $(MAKE) state
+
+.PHONY : local/plan/prod
+local/plan/prod: docman/build/local/stable
+	# TODO: Find a better way to retrieve dependencies.
+	cp -fR $(MAKEFILE_ROOT_PATH)/.build/master/templates $(MAKEFILE_ROOT_PATH)
+	ENV="prod" $(MAKE) plan
