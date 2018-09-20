@@ -20,7 +20,7 @@ self/%:
 	@:
 
 .PHONY : %/after
-%/kfter:
+%/after:
 	@:
 
 .PHONY : init plan apply destroy state
