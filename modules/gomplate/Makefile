@@ -1,7 +1,4 @@
 gomplate:
-	# TODO: Refactor this copy procedure (remove it).
-	cp -f ${SECRETS_DIR}/gce.account.json .;
-
 	cp -fR $(TEMPLATES_PATH)/. $(CAULDRON_WORKDIR_PATH);
 
 	gomplate -d defines=$(DEFINES_FILE) \
