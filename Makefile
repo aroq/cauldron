@@ -55,7 +55,7 @@ local/apply/prod: docman/build/local/stable
 	ENV="prod" $(MAKE) apply
 
 .PHONY : local/apply/dev
-local/apply/prod: docman/build/local/development
+local/apply/dev: docman/build/local/development
 	# TODO: Find a better way to retrieve dependencies.
 	cp -fR $(MAKEFILE_ROOT_PATH)/.build/master/templates $(MAKEFILE_ROOT_PATH)
 $(MAKE) apply
