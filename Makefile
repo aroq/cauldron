@@ -42,7 +42,6 @@ global/all/before:
 global/all/after:
 	@echo "--- End $(CAULDRON_MAKEFILE_PATH) ---"
 
-
 .PHONY : cauldron/workdir/clean
 cauldron/workdir/clean:
 	@echo "Clean cauldron"
