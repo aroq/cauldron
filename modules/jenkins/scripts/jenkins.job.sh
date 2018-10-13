@@ -6,7 +6,7 @@ echo "POD: $POD"
 
 gcloud auth list
 
-kubectl cp "${SERVICES_ZEBRA_NAMESPACE}/${POD}:/var/jenkins_home/zebra/user_token" jenkins_user_token
+kubectl cp ${SERVICES_ZEBRA_NAMESPACE}/${POD}:/var/jenkins_home/zebra/user_token jenkins_user_token
 
 JENKINS_AUTH_TOKEN="${JENKINS_AUTH_USER}:$(cat jenkins_user_token)"
 export JENKINS_AUTH_TOKEN
