@@ -7,7 +7,7 @@ kubectl cp "${SERVICES_ZEBRA_NAMESPACE}/${POD}:/var/jenkins_home/zebra/user_toke
 JENKINS_AUTH_TOKEN=${JENKINS_AUTH_USER}:$(cat jenkins_user_token)
 export JENKINS_AUTH_TOKEN
 
-JENKINS_HOST=${JENKINS_HOST:-$(kubectl get service "zebra-cd-${SERVICES_ZEBRA_ENVIRONMENT}-jenkins" -o jsonpath="{.spec.clusterIP}")}
+JENKINS_HOST=${JENKINS_HOST:-$(kubectl -n "${SERVICES_ZEBRA_NAMESPACE}" get service "zebra-cd-${SERVICES_ZEBRA_ENVIRONMENT}-jenkins" -o jsonpath="{.spec.clusterIP}")}
 
-scripts/jenkins.job.py
+jenkins.job.py
 
