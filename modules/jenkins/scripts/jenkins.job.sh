@@ -9,6 +9,8 @@ export JENKINS_AUTH_TOKEN
 
 JENKINS_HOST=${JENKINS_HOST:-$(kubectl -n "${SERVICES_ZEBRA_NAMESPACE}" get service "zebra-cd-${SERVICES_ZEBRA_ENVIRONMENT}-jenkins" -o jsonpath="{.spec.clusterIP}")}
 
+export JENKINS_HOST
+
 echo "JENKINS_HOST: $JENKINS_HOST"
 
 eval "${CAULDRON_PATH}/modules/jenkins/scripts/jenkins.job.py"
