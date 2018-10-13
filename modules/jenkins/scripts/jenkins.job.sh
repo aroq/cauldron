@@ -11,5 +11,5 @@ JENKINS_HOST=${JENKINS_HOST:-$(kubectl -n "${SERVICES_ZEBRA_NAMESPACE}" get serv
 
 echo "JENKINS_HOST: $JENKINS_HOST"
 
-eval "${CAULDRON_PATH}/modules/jenkins/scipts/jenkins.job.py"
+eval "${CAULDRON_PATH}/modules/jenkins/scripts/jenkins.job.py"
 
