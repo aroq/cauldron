@@ -1,2 +1,2 @@
 jenkins/job/execute:
-	scripts/jenkins.job.sh
+	${CAULDRON_PATH}/modules/jenkins/scripts/jenkins.job.sh
