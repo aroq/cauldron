@@ -4,7 +4,8 @@ POD=$(kubectl get pod -n "${SERVICES_ZEBRA_NAMESPACE}" -l component="${SERVICES_
 
 echo "POD: $POD"
 
-echo "kubectl cp ${SERVICES_ZEBRA_NAMESPACE}/${POD}:/var/jenkins_home/zebra/user_token jenkins_user_token"
+gcloud auth list
+
 kubectl cp "${SERVICES_ZEBRA_NAMESPACE}/${POD}:/var/jenkins_home/zebra/user_token" jenkins_user_token
 
 JENKINS_AUTH_TOKEN="${JENKINS_AUTH_USER}:$(cat jenkins_user_token)"
