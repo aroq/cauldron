@@ -16,6 +16,7 @@ auth_token = os.environ['JENKINS_AUTH_TOKEN']  # required
 jenkins_uri = os.getenv('JENKINS_HOST', 'localhost')
 jenkins_port = os.getenv('JENKINS_PORT', '8080')
 job_name = os.getenv('JENKINS_JOB_NAME', 'mothership')
+job_values = os.getenv('JENKINS_JOB_VALUES', '{"parameter": [{"name": "force", "value": 0}]}')
 
 # get the crumb
 crumb_get_url = 'http://{}@{}:{}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'.format(
@@ -27,13 +28,12 @@ headers = {}
 crumb_parts = crumb.content.split(":")
 headers[crumb_parts[0]] = crumb_parts[1]
 
-# prepare values
-values = {'parameter': [{'name': 'force', 'value': 0}]}
-
 # start the build
-start_build_url = 'http://{}@{}:{}/job/{}/build?delay=0sec'.format(
+start_build_url = 'http://{}@{}:{}/job/{}/buildWithParameters?delay=0sec'.format(
         auth_token, jenkins_uri, jenkins_port, job_name)
-response = requests.post(start_build_url, json.dumps(values), headers)
+
+job_values = {'json': job_values}
+response = requests.post(start_build_url, job_values, headers)
 
 # get a job queue location from return headers
 match = re.match(r"http.+(queue.+)/", response.headers['Location'])
