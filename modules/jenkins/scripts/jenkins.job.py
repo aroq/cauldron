@@ -6,7 +6,6 @@ import sys
 import json
 import time
 import os
-import six
 
 # set variables from ENV vars
 QUEUE_POLL_INTERVAL = os.getenv('QUEUE_POLL_INTERVAL', 2)
@@ -20,25 +19,6 @@ job_name = os.getenv('JENKINS_JOB_NAME', 'mothership')
 job_values = os.getenv('JENKINS_JOB_VALUES', '')
 
 
-def needs_encoding(data):
-    """
-    Check whether data is Python 2 unicode variable and needs to be
-    encoded
-    """
-    if six.PY2 and isinstance(data, unicode):
-        return True
-    return False
-
-
-def to_string(data, encoding='utf-8'):
-    """
-    Return string representation for the data. In case of Python 2 and unicode
-    do additional encoding before
-    """
-    encoded_text = data.encode(encoding) if needs_encoding(data) else data
-    return str(encoded_text)
-
-
 def _mk_json_from_build_parameters(build_params, file_params=None):
     """
     Build parameters must be submitted in a particular format
@@ -48,7 +28,7 @@ def _mk_json_from_build_parameters(build_params, file_params=None):
     if not isinstance(build_params, dict):
         raise ValueError('Build parameters must be a dict')
 
-    build_p = [{'name': k, 'value': to_string(v)}
+    build_p = [{'name': k, 'value': v}
                for k, v in sorted(build_params.items())]
 
     out = {'parameter': build_p}
