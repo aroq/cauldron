@@ -3,7 +3,7 @@
 POD=$(kubectl get pod -n "${SERVICES_ZEBRA_NAMESPACE}" -l component="${SERVICES_ZEBRA_NAMESPACE}-jenkins-master" -o jsonpath='{.items[0].metadata.name}')
 echo "POD: $POD"
 
-JENKINS_HOST=${JENKINS_HOST:-$(kubectl -n "${SERVICES_ZEBRA_NAMESPACE}" get service "zebra-cd-${SERVICES_ZEBRA_ENVIRONMENT}-jenkins" -o jsonpath="{.spec.clusterIP}")}
+JENKINS_HOST=${JENKINS_HOST:-$(kubectl -n "${SERVICES_ZEBRA_NAMESPACE}" get service "${SERVICES_ZEBRA_NAMESPACE}-jenkins" -o jsonpath="{.spec.clusterIP}")}
 echo "JENKINS_HOST: $JENKINS_HOST"
 export JENKINS_HOST
 
