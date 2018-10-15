@@ -6,6 +6,7 @@ import sys
 import json
 import time
 import os
+import six
 
 # set variables from ENV vars
 QUEUE_POLL_INTERVAL = os.getenv('QUEUE_POLL_INTERVAL', 2)
@@ -18,12 +19,67 @@ jenkins_port = os.getenv('JENKINS_PORT', '8080')
 job_name = os.getenv('JENKINS_JOB_NAME', 'mothership')
 job_values = os.getenv('JENKINS_JOB_VALUES', '')
 
+
+def needs_encoding(data):
+    """
+    Check whether data is Python 2 unicode variable and needs to be
+    encoded
+    """
+    if six.PY2 and isinstance(data, unicode):
+        return True
+    return False
+
+
+def to_string(data, encoding='utf-8'):
+    """
+    Return string representation for the data. In case of Python 2 and unicode
+    do additional encoding before
+    """
+    encoded_text = data.encode(encoding) if needs_encoding(data) else data
+    return str(encoded_text)
+
+
+def _mk_json_from_build_parameters(build_params, file_params=None):
+    """
+    Build parameters must be submitted in a particular format
+    Key-Value pairs would be far too simple, no no!
+    Watch and read on and behold!
+    """
+    if not isinstance(build_params, dict):
+        raise ValueError('Build parameters must be a dict')
+
+    build_p = [{'name': k, 'value': to_string(v)}
+               for k, v in sorted(build_params.items())]
+
+    out = {'parameter': build_p}
+    if file_params:
+        file_p = [{'name': k, 'file': k}
+                  for k in file_params.keys()]
+        out['parameter'].extend(file_p)
+
+    if len(out['parameter']) == 1:
+        out['parameter'] = out['parameter'][0]
+
+    return out
+
+
+def mk_json_from_build_parameters(build_params, file_params=None):
+    json_structure = _mk_json_from_build_parameters(
+        build_params,
+        file_params
+    )
+    json_structure['statusCode'] = "303"
+    json_structure['redirectTo'] = "."
+    return json.dumps(json_structure)
+
+
 # get the crumb
 crumb_get_url = 'http://{}@{}:{}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'.format(
                     auth_token, jenkins_uri, jenkins_port)
 crumb = requests.get(crumb_get_url)
 
 # set a crumb to the headers
+# headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 headers = {}
 crumb_parts = crumb.content.split(":")
 headers[crumb_parts[0]] = crumb_parts[1]
@@ -38,9 +94,14 @@ start_build_url = 'http://{}@{}:{}/job/{}/{}?delay=0sec'.format(
         auth_token, jenkins_uri, jenkins_port, job_name, command)
 print 'BUILD URL: {}'.format(start_build_url)
 
-job_values = {'json': job_values}
+build_params = json.loads(job_values)
+d = {
+    'json': mk_json_from_build_parameters(build_params)
+}
 
-response = requests.post(start_build_url, job_values, headers)
+d.update(build_params)
+
+response = requests.post(start_build_url, data=d, headers=headers)
 
 # get a job queue location from return headers
 match = re.match(r"http.+(queue.+)/", response.headers['Location'])
