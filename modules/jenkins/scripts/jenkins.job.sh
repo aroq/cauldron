@@ -9,8 +9,6 @@ export JENKINS_PORT
 
 while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://${JENKINS_HOST}:${JENKINS_PORT}/login)" != "200" ]]; do sleep 5; done
 
-sleep 15
-
 POD=$(kubectl get pod -n "${SERVICES_ZEBRA_NAMESPACE}" -l component="${SERVICES_ZEBRA_NAMESPACE}-jenkins-master" -o jsonpath='{.items[0].metadata.name}')
 echo "POD: $POD"
 
