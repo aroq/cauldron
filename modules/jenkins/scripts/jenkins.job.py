@@ -66,20 +66,19 @@ headers[crumb_parts[0]] = crumb_parts[1]
 
 if job_values:
     command = 'buildWithParameters'
+    build_params = json.loads(job_values)
+    d = {
+        'json': mk_json_from_build_parameters(build_params)
+    }
+    d.update(build_params)
 else:
     command = 'build'
+    d = {}
 
 # start the build
 start_build_url = 'http://{}@{}:{}/job/{}/{}?delay=0sec'.format(
         auth_token, jenkins_uri, jenkins_port, job_name, command)
 print 'BUILD URL: {}'.format(start_build_url)
-
-build_params = json.loads(job_values)
-d = {
-    'json': mk_json_from_build_parameters(build_params)
-}
-
-d.update(build_params)
 
 response = requests.post(start_build_url, data=d, headers=headers)
 
