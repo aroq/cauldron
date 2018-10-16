@@ -4,6 +4,7 @@ gomplate:
 	gomplate -d defines=$(DEFINES_FILE) \
 		--exclude="$(TEMPLATES_PATH)/$(SERVICES_PATH)/*/charts" \
 		--exclude="$(TEMPLATES_PATH)/$(SERVICES_PATH)/*/helmfile/helmfile.*" \
+		--exclude="$(TEMPLATES_PATH)/$(SERVICES_PATH)/*/config/*.gomplate-runtime" \
 		--exclude="$(TEMPLATES_PATH)/.git" \
 		--input-dir=$(TEMPLATES_PATH) \
 		--output-dir=$(CAULDRON_WORKDIR_PATH);
