@@ -8,3 +8,6 @@ gomplate:
 		--input-dir=$(TEMPLATES_PATH) \
 		--output-dir=$(CAULDRON_WORKDIR_PATH);
 	find $(CAULDRON_WORKDIR_PATH) -type f -iname "*.sh" -exec chmod +x {} \;
+
+gomplate/runtime:
+	fd --no-ignore-vcs -e "gomplate-runtime" --full-path '$(CAULDRON_WORKDIR_PATH)' -exec gomplate -d defines=$(DEFINES_FILE) --file="{}" --out="{.}"
