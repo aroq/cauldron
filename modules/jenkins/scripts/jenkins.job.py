@@ -78,7 +78,9 @@ else:
 # start the build
 start_build_url = 'http://{}@{}:{}/job/{}/{}?delay=0sec'.format(
         auth_token, jenkins_uri, jenkins_port, job_name, command)
-print 'BUILD URL: {}'.format(start_build_url)
+start_build_url_without_token = 'http://{}:{}/job/{}/{}?delay=0sec'.format(
+        jenkins_uri, jenkins_port, job_name, command)
+print 'BUILD URL: {}'.format(start_build_url_without_token)
 
 response = requests.post(start_build_url, data=d, headers=headers)
 
