@@ -1,0 +1,84 @@
+Version 0.1.0
+ - Remove token from prints
+ - Update gomplate rule
+ - Add gomplate/runtime rule
+ - Update helm delete rule
+ - Update helm delete rule
+ - Update helm delete rule
+ - Update helm delete rule
+ - Add helm delete purge
+ - Remove sleep 15 from jenkins test job
+ - Change order of commands for the jenkins job test script
+ - Update jenkins test script
+ - Refactor jenkins test script
+ - Fix jenkins job execution
+ - Remove service file
+ - Fix jenkins job execution
+ - Fix jenkins job execution
+ - Fix jenkins job execution
+ - Fix jenkins job execution
+ - Fix jenkins job execution
+ - Update jenkins module
+ - Add export JENKINS_HOST
+ - Fix scripts path
+ - Remove token :)
+ - Fix script for jenkins job execute
+ - Update debug
+ - Update debug
+ - Update debug
+ - Update debug info
+ - Update cauldron
+ - Update cauldron
+ - Update jenkins modules scripts path
+ - Add jenkins module
+ - Add helm init
+ - Add gcloud/setup rule
+ - Helmfile add log level env var: HELMFILE_LOG_LEVEL
+ - Add remove .build before docman init
+ - Add local/apply/dev
+ - Add local/apply/dev
+ - Add local/apply/dev
+ - Add local/apply
+ - Add docman build local development
+ - Remove gce acc copy
+ - Fix self/* rules
+ - Fix self/* rules
+ - Remove self prefix from before/after rules (hooks)
+ - Add local/plan/prod
+ - Update README
+ - Add readme
+ - Add .PHONY to rules
+ - Add local state prod
+ - Add local state prod
+ - Add docman bump stable
+ - Fix docman local build stable
+ - Add docman build local stable
+ - Remove common rules
+ - Add rules
+ - Fix CAULDRON_PATH init
+ - Debug
+ - Change CAULDRON_PATH ENV var init
+ - Change initialization of ENV vars
+ - Change initialization of ENV vars
+ - Fix MAKEFILE_ROOT_PATH
+ - Change ENV var
+ - Remove include of cauldron in makefile.installer
+ - Fix cauldron remove before cloning
+ - Add .git into gomplate exclude
+ - Add .git into gomplate exclude
+ - Merge branch 'master' of github.com:aroq/cauldron
+ - Fix cauldron path & calling makefile name retrieve
+ - Add phony to rules
+ - Fix cauldron workdir clean
+ - Fix clone dir
+ - Change rules names
+ - Add initialization script
+ - Remove project specific ENV vars
+ - Add ENV vars for git module
+ - Add ENV vars for git module
+ - Add ENV vars for goofys
+ - Update helmfile rule
+ - Fix makefile root
+ - Update cauldron with helmfile
+ - Initial commit
+
