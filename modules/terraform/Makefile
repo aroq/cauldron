@@ -14,4 +14,4 @@ terraform/apply:
 	terraform apply -auto-approve;
 
 terraform/destroy:
-	terraform destroy;
+	"${CAULDRON_PATH}/modules/terraform/scripts/destroy.sh"
