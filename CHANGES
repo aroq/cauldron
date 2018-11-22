@@ -1,3 +1,6 @@
+Version 0.1.1:
+ - Change terraform destroy: add script
+
 Version 0.1.0
  - Remove token from prints
  - Update gomplate rule
