@@ -5,3 +5,6 @@ utils/apply/kubectl/config:
 utils/delete/kubectl/config:
 	kubectl config use-context $(KUBECTL_CONTEXT_NAME)
 	kubectl delete -f config/;
+
+kubectl/rs/scale:
+	"${CAULDRON_PATH}/modules/kubectl/scripts/rs/scale.sh"
