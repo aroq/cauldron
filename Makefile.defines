@@ -7,3 +7,6 @@ export TEMPLATES_PATH = $(MAKEFILE_ROOT_PATH)/templates
 export CAULDRON_WORKDIR_PATH = $(MAKEFILE_ROOT_PATH)/cauldron
 
 export DEFINES_FILE = $(CAULDRON_WORKDIR_PATH)/defines.yml
+
+export CAULDRON_LOG_LEVEL ?= 3
+
