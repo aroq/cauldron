@@ -1,29 +1,14 @@
 #!/usr/bin/env bash
 
 # shellcheck source=/dev/null
-source "${CAULDRON_PATH/scripts/functions.sh}"
+source "${CAULDRON_PATH}/modules/kubectl/scripts/functions.sh"
 
-if [[ -z "${K8S_NAMESPACE}" ]]; then
-    echo "Using current k8s namespace as K8S_NAMESPACE env var is not set"
-    K8S_NAMESPACE=""
-else
-    K8S_NAMESPACE=" -n ${K8S_NAMESPACE}"
-fi
+# TODO: set proper condition with name, etc.
+COMMAND="get rs --selector=${CAULDRON_KUBECTL_SELECTOR} -o jsonpath='{.items[?(@.spec.replicas==1)].metadata.name}'"
 
-KUBECTL_COMMAND_PREFIX="kubectl${K8S_NAMESPACE}"
+K8S_RS_NAME=$(cauldron_kubectl_command_exec_with_dryrun_ignore "${COMMAND}")
+info "K8S_RS_NAME: ${K8S_RS_NAME}"; echo
 
-echo "K8S_NAMESPACE: ${K8S_NAMESPACE}"
-
-COMMAND="${KUBECTL_COMMAND_PREFIX} get rs -o jsonpath=\"{.items[?(@.spec.replicas==1)].metadata.name}\""
-
-K8S_RS_NAME=$(cauldron_command_exec_with_dryrun_ignore "${COMMAND}")
-echo "K8S_RS_NAME: ${K8S_RS_NAME}"
-echo
-
-cauldron_command_exec "${KUBECTL_COMMAND_PREFIX} scale rs ${K8S_RS_NAME} --replicas 0"
-echo
-
-sleep 5
-
-cauldron_command_exec "${KUBECTL_COMMAND_PREFIX} scale rs ${K8S_RS_NAME} --replicas 1"
+cauldron_kubectl_command_exec "scale rs ${K8S_RS_NAME} --replicas 0"; echo; sleep 5
+cauldron_kubectl_command_exec "scale rs ${K8S_RS_NAME} --replicas 1"
 
