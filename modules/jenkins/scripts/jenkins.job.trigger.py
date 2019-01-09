@@ -2,6 +2,12 @@
 
 import os
 from zebra_jenkins.zebra_jenkins import *
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument("-f", "--file", dest="filename",
+                    help="read job names from FILE", metavar="FILE")
+args = parser.parse_args()
 
 # set variables from ENV vars
 queue_poll_interval = os.getenv('QUEUE_POLL_INTERVAL', 2)
@@ -16,8 +22,31 @@ job_values = os.getenv('JENKINS_JOB_VALUES', '')
 # response = trigger_build(auth_token, jenkins_uri, jenkins_port, job_name, job_values)
 # queue_id = get_build_queue_id(response)
 
-executors_count = get_active_executors_count(auth_token, jenkins_uri, jenkins_port)
-print executors_count
+# print executors_count
+
+
+def trigger_job_if_queue_is_not_full(auth_token, jenkins_uri, jenkins_port, job_name, job_values):
+    while True:
+        executors_count = get_active_executors_count(auth_token, jenkins_uri, jenkins_port)
+        print executors_count
+        if executors_count < 3:
+            response = trigger_build(auth_token, jenkins_uri, jenkins_port, job_name, job_values)
+            queue_id = get_build_queue_id(response)
+            break
+        else:
+            time.sleep(15)
+    return queue_id
+
+
+f = open(args.filename, 'r')
+while True:
+    x = f.readline()
+    x = x.rstrip()
+    if not x:
+        break
+    print x
+    trigger_job_if_queue_is_not_full(auth_token, jenkins_uri, jenkins_port, x, job_values)
+    time.sleep(15)
 
 # build_id = wait_build_start(auth_token,
 #                             jenkins_uri,
