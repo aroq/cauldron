@@ -15,5 +15,5 @@ echo "POD: $POD"
 JENKINS_AUTH_TOKEN="${JENKINS_AUTH_USER}:$(kubectl -n ${SERVICES_ZEBRA_NAMESPACE} exec ${POD} cat /var/jenkins_home/zebra/user_token)"
 export JENKINS_AUTH_TOKEN
 
-eval "${CAULDRON_PATH}/modules/jenkins/scripts/jenkins.quietmode.set.py"
+eval "${CAULDRON_PATH}/modules/jenkins/scripts/jenkins.quiet.set.py"
 
