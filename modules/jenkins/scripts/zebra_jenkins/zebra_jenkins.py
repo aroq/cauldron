@@ -14,6 +14,55 @@ def get_active_executors_count(auth_token, jenkins_uri, jenkins_port):
     return jqe['busyExecutors']
 
 
+def get_one_off_active_executors_count(auth_token, jenkins_uri, jenkins_port):
+    headers = prepare_headers(auth_token, jenkins_uri, jenkins_port)
+    start_build_url = 'http://{}@{}:{}/computer/api/json?depth=1'.format(
+        auth_token, jenkins_uri, jenkins_port)
+    response = requests.post(start_build_url, data={}, headers=headers)
+    jqe = response.json()
+    return len(jqe['computer'][0]['oneOffExecutors'])
+
+
+def wait_for_zero_executors_count(force_quite_mode, quite_poll_period, quite_poll_tries_count, auth_token, jenkins_uri, jenkins_port):
+    c = 1
+    while force_quite_mode != "1" and True:
+        executors_count = get_active_executors_count(auth_token, jenkins_uri, jenkins_port)
+        one_off_executors_count = get_one_off_active_executors_count(auth_token, jenkins_uri, jenkins_port)
+        final_executors_count = executors_count + one_off_executors_count
+        queue_size = len(get_queue(auth_token, jenkins_uri, jenkins_port))
+        print "Try #: {}".format(c)
+        print "Executors count: {}".format(executors_count)
+        print "One off executors count: {}".format(one_off_executors_count)
+        print "Queue size: {}".format(queue_size)
+        if final_executors_count == 0:
+            break
+        print "Wait for {} seconds".format(quite_poll_period)
+        time.sleep(quite_poll_period)
+        c = c + 1
+        if c > quite_poll_tries_count:
+            print "Cancel quiet down"
+            set_quiet_mode("cancelQuietDown", auth_token, jenkins_uri, jenkins_port)
+            print "Aborting as builds are still in progress"
+            exit(1)
+
+
+def get_queue(auth_token, jenkins_uri, jenkins_port):
+    headers = prepare_headers(auth_token, jenkins_uri, jenkins_port)
+    start_build_url = 'http://{}@{}:{}/queue/api/json'.format(
+        auth_token, jenkins_uri, jenkins_port)
+    response = requests.post(start_build_url, data={}, headers=headers)
+    jqe = response.json()
+    return jqe['items']
+
+
+def set_quiet_mode(mode, auth_token, jenkins_uri, jenkins_port):
+    headers = prepare_headers(auth_token, jenkins_uri, jenkins_port)
+    start_build_url = 'http://{}@{}:{}/{}'.format(
+        auth_token, jenkins_uri, jenkins_port, mode)
+    response = requests.post(start_build_url, data={}, headers=headers)
+    return response.status_code
+
+
 def trigger_build(auth_token, jenkins_uri, jenkins_port, job_name, job_values):
     headers = prepare_headers(auth_token, jenkins_uri, jenkins_port)
     d = prepare_data(job_values)
