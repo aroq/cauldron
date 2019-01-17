@@ -1,3 +1,20 @@
+Version 0.1.3:
+ - Debug JENKINS_AUTH_TOKEN
+ - Add jenkins wait make rule
+ - Rename scripts
+ - Set jenkins.quietmode.set.py as executable
+ - Set jenkins.quietmode.set.sh as executable
+ - Add jenkins.quietmode.set.sh script
+ - Add set quiet mode makefile rule
+ - Add jenkins executors proper retrieval and set quiet mode
+ - Add log functions
+ - Add log functions
+ - Add rescale kubectl rs
+ - Add kubectl scale
+ - Merge branch 'jenkins-trigger-multi'
+ - Trigger jenkins multijob
+ - Add jenkins trigger python scripts
+
 Version 0.1.2:
  - Add kubectl delete action
 
