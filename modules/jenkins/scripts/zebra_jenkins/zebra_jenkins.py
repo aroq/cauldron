@@ -109,7 +109,7 @@ def wait_build_start(auth_token, jenkins_uri, jenkins_port, queue_id, job_name, 
         try:
             job_id = jqe['executable']['number']
             break
-        except requests.exceptions.RequestException:
+        except Exception:
             time.sleep(queue_poll_interval)
             elapsed_time += queue_poll_interval
 
